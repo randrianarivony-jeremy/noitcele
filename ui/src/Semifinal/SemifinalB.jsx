@@ -1,58 +1,42 @@
-import { Box, HStack, Heading, Image, Link, Text } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
-import { appContext } from '../Context';
+import Card from '../Components/Card';
+import { appContext } from '../Context/Context';
+import Wrapper from '../Components/Wrapper';
 
 const SemifinalB = () => {
-  const { height, semifinalistsB, finalists, setFinalists } =
-    useContext(appContext);
+  const {
+    semifinalistsB,
+    finalists,
+    setFinalists,
+    setThirdFinalists,
+    thirdFinalists,
+  } = useContext(appContext);
 
   return (
-    <Box id="semi-B" minH={height - 100}>
-      <Heading size={'sm'} paddingY={2}>
-        Demi B
-      </Heading>
-      <Text>Iza no tsy tianao ho lany filoham-pirenena ?</Text>
-      <HStack
-        wrap={'wrap'}
-        align={'flex-start'}
-        justify={'center'}
-        spacing={[2, 3, 4]}
-      >
-        {semifinalistsB.current.map(({ name, nb, picture }) => (
-          <Link
-            rounded={'lg'}
-            padding={2}
-            align={'flex-start'}
-            cursor={'pointer'}
-            boxShadow={finalists.B.nb === nb ? '0 0 10px red' : 'lg'}
-            _hover={{ boxShadow: finalists.B.nb !== nb && '2xl' }}
-            href="#semi-submit"
-            key={nb}
-            maxW={300}
-            aspectRatio={[4 / 5, 2 / 3, 3 / 4]}
-            width={['100%', '45%']}
-            onClick={() =>
-              setFinalists({ ...finalists, B: { name, picture, nb } })
-            }
-          >
-            <Text>Candidat {nb}</Text>
-            <Image
-              src={picture}
-              alt={name}
-              width={'100%'}
-              maxW={320}
-              marginY={3}
-              objectFit={'contain'}
-              aspectRatio={1 / 1}
-            />
-            <Text fontWeight={'bold'} fontSize={'sm'} wordBreak={'break-word'}>
-              {name}
-            </Text>
-          </Link>
-        ))}
-      </HStack>
-    </Box>
+    <HStack
+      wrap={'wrap'}
+      align={'flex-start'}
+      justify={'center'}
+      spacing={[2, 3, 4]}
+    >
+      {semifinalistsB.current.map(candidate => (
+        <Card
+          key={candidate.nb}
+          selection={finalists.B.nb}
+          candidate={candidate}
+          handleClick={() => {
+            setFinalists({ ...finalists, B: candidate });
+            setThirdFinalists({
+              ...thirdFinalists,
+              B: semifinalistsB.current.find(one => one.nb !== candidate.nb),
+            });
+          }}
+          next="semi-submit"
+        />
+      ))}
+    </HStack>
   );
 };
 
-export default SemifinalB;
+export default Wrapper(SemifinalB, 'semi-B', 'Demi-finale B');

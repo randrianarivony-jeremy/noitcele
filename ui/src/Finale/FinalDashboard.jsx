@@ -1,12 +1,11 @@
 import { HStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
+import { appContext } from '../Context/Context';
 import Card from '../Components/Card';
 import Wrapper from '../Components/Wrapper';
-import { appContext } from '../Context/Context';
 
-const GroupA = () => {
-  const { semifinalists, setSemifinalists, groupA } = useContext(appContext);
-
+const FinalDashboard = () => {
+  const { finalists, winner, setWinner } = useContext(appContext);
   return (
     <HStack
       wrap={'wrap'}
@@ -14,19 +13,17 @@ const GroupA = () => {
       align={'flex-start'}
       spacing={[2, 3, 4]}
     >
-      {groupA.map(candidate => (
+      {Object.values(finalists).map(candidate => (
         <Card
           key={candidate.nb}
-          selection={semifinalists.A.nb}
+          selection={winner?.nb}
           candidate={candidate}
-          handleClick={() =>
-            setSemifinalists({ ...semifinalists, A: candidate })
-          }
-          next="group-B"
+          handleClick={() => setWinner(candidate)}
+          next={'final-submit'}
         />
       ))}
     </HStack>
   );
 };
 
-export default Wrapper(GroupA, 'group-A', 'Poule A');
+export default Wrapper(FinalDashboard, 'finale', 'Finale');

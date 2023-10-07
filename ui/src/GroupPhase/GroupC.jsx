@@ -1,57 +1,32 @@
-import { Box, HStack, Heading, Image, Link, Text } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
-import { appContext } from '../Context';
+import Wrapper from '../Components/Wrapper';
+import { appContext } from '../Context/Context';
+import Card from '../Components/Card';
 
-const GroupC = ({ groupC }) => {
-  const { semifinalists, setSemifinalists, height } = useContext(appContext);
+const GroupC = () => {
+  const { groupC, semifinalists, setSemifinalists } = useContext(appContext);
 
   return (
-    <Box id="group-C" minH={height}>
-      <Heading size={'sm'} paddingY={2}>
-        Poule C
-      </Heading>
-      <Text>Iza no tsy tianao ho lany filoham-pirenena ?</Text>
-      <HStack
-        wrap={'wrap'}
-        justify={'center'}
-        align={'flex-start'}
-        spacing={[2, 3, 4]}
-      >
-        {groupC.map(({ name, nb, picture }) => (
-          <Link
-            rounded={'lg'}
-            padding={2}
-            align={'flex-start'}
-            cursor={'pointer'}
-            boxShadow={semifinalists.C.nb === nb ? '0 0 10px red' : 'lg'}
-            _hover={{ boxShadow: semifinalists.C.nb !== nb && '2xl' }}
-            href="#group-D"
-            key={nb}
-            maxW={300}
-            aspectRatio={[4 / 5, 2 / 3, 3 / 4]}
-            width={['100%', '45%']}
-            onClick={() =>
-              setSemifinalists({ ...semifinalists, C: { name, picture, nb } })
-            }
-          >
-            <Text>Candidat {nb}</Text>
-            <Image
-              src={picture}
-              alt={name}
-              marginY={3}
-              width={'100%'}
-              maxW={320}
-              objectFit={'contain'}
-              aspectRatio={1 / 1}
-            />
-            <Text fontWeight={'bold'} fontSize={'sm'} wordBreak={'break-word'}>
-              {name}
-            </Text>
-          </Link>
-        ))}
-      </HStack>
-    </Box>
+    <HStack
+      wrap={'wrap'}
+      justify={'center'}
+      align={'flex-start'}
+      spacing={[2, 3, 4]}
+    >
+      {groupC.map(candidate => (
+        <Card
+          key={candidate.nb}
+          candidate={candidate}
+          selection={semifinalists.C.nb}
+          handleClick={() =>
+            setSemifinalists({ ...semifinalists, C: candidate })
+          }
+          next="group-D"
+        />
+      ))}
+    </HStack>
   );
 };
 
-export default GroupC;
+export default Wrapper(GroupC, 'group-C', 'Poule C');

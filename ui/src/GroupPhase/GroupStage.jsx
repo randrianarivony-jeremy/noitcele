@@ -1,21 +1,12 @@
-import {
-  Box,
-  Button,
-  Center,
-  Circle,
-  Heading,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { appContext } from '../Context';
+import { Box, Button, Center, Stack } from '@chakra-ui/react';
+import React, { useContext, useEffect, useState } from 'react';
+import { appContext } from '../Context/Context';
 import GroupA from './GroupA';
 import GroupB from './GroupB';
 import GroupC from './GroupC';
 import GroupD from './GroupD';
 
-const GroupStage = ({ groupA, groupB, groupC, groupD }) => {
+const GroupStage = () => {
   const {
     setSemifinal,
     semifinalists,
@@ -25,7 +16,7 @@ const GroupStage = ({ groupA, groupB, groupC, groupD }) => {
   } = useContext(appContext);
   const [complete, setComplete] = useState(false);
   const [finished, setFinished] = useState(false);
-  const groupALink = useRef();
+  const [loading, setLoading] = useState(true);
 
   const handleSubmit = () => {
     const total = Object.values(semifinalists);
@@ -47,28 +38,23 @@ const GroupStage = ({ groupA, groupB, groupC, groupD }) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      groupALink.current.click();
-    }, 3000);
-  }, []);
-
-  useEffect(() => {
     if (Object.values(semifinalists).includes('')) setComplete(false);
     else setComplete(true);
   }, [semifinalists]);
 
+  // if (!loading)
   return (
     <Box pointerEvents={finished && 'none'} opacity={finished ? 0.5 : 1}>
-      <Circle
-        pos={'absolute'}
-        top={2}
-        right={2}
-        bg={'red'}
-        size={10}
-        color={'white'}
-      >
-        <strong>-1</strong>
-      </Circle>
+      {/* <Circle
+          pos={'absolute'}
+          top={2}
+          right={2}
+          bg={'red'}
+          size={10}
+          color={'white'}
+        >
+          <strong>-1</strong>
+        </Circle> */}
       <Center
         height={height}
         id="group-stage-onboarding"
@@ -85,19 +71,19 @@ const GroupStage = ({ groupA, groupB, groupC, groupD }) => {
         </Center>
       </Center>
       <Stack spacing={10} id="group-stage">
-        <GroupA groupA={groupA} />
-        <GroupB groupB={groupB} />
-        <GroupC groupC={groupC} />
-        <GroupD groupD={groupD} />
+        <GroupA />
+        <GroupB />
+        <GroupC />
+        <GroupD />
         <Button
           id="group-phase-submit"
-          colorScheme="messenger"
+          bgColor="brand"
           onClick={handleSubmit}
           isDisabled={!complete}
+          color={'blackAlpha.900'}
         >
           {finished ? 'Validé' : 'Valider'}
         </Button>
-        <Link display={'none'} ref={groupALink} href="#group-A" />
       </Stack>
     </Box>
   );

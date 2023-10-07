@@ -1,26 +1,18 @@
-import {
-  Box,
-  Button,
-  Center,
-  Heading,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Link, Stack } from '@chakra-ui/react';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { appContext } from '../Context';
+import { appContext } from '../Context/Context';
 import SemifinalA from './SemifinalA';
 import SemifinalB from './SemifinalB';
 
 const Semifinal = () => {
-  const { setFinal, finalists, height } = useContext(appContext);
+  const { setThirdFinal, finalists, height } = useContext(appContext);
   const [finished, setFinished] = useState(false);
   const [complete, setComplete] = useState(false);
   const semifinalLink = useRef();
   const semifinalALink = useRef();
 
   const handleSubmit = () => {
-    setFinal(true);
+    setThirdFinal(true);
     setFinished(true);
   };
 
@@ -53,16 +45,17 @@ const Semifinal = () => {
           Demi-finale
         </Center>
       </Center>
-      <Stack spacing={10} minH={height}>
+      <Stack spacing={10}>
         <SemifinalA />
         <SemifinalB />
         <Link display={'none'} ref={semifinalLink} href="#semifinal" />
         <Link display={'none'} ref={semifinalALink} href="#semi-A" />
         <Button
           id="semi-submit"
-          colorScheme="messenger"
+          bgColor="brand"
           onClick={handleSubmit}
           isDisabled={!complete}
+          color={'blackAlpha.900'}
         >
           {finished ? 'Validé' : 'Valider'}
         </Button>

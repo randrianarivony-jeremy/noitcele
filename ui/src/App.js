@@ -1,80 +1,55 @@
-import { Box } from '@chakra-ui/react';
+import { Link, Stack } from '@chakra-ui/react';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import './App.css';
-import { appContext } from './Context';
-import Final from './Final';
+import AllCandidates from './Components/AllCandidates';
+import LockScroll from './Components/LockScroll';
+import Navbar from './Components/Navbar';
+import Wallpaper from './Components/Wallpaper';
+import { appContext } from './Context/Context';
+import Final from './Finale/Final';
 import GroupStage from './GroupPhase/GroupStage';
 import Semifinal from './Semifinal/Semifinal';
+import ThirdPlace from './ThirdPlace/ThirdPlace';
 
 function App() {
-  const { candidates, final, semifinal } = useContext(appContext);
-  const total = useRef([...candidates]);
-  const [loading, setLoading] = useState(true);
-  const groupA = useRef([]);
-  const groupB = useRef([]);
-  const groupC = useRef([]);
-  const groupD = useRef([]);
+  const { thirdFinal, final, semifinal } = useContext(appContext);
+  const allCandidatesLink = useRef();
+  const groupStageLink = useRef();
+  const groupALink = useRef();
+  const [lockScroll, setLockScroll] = useState(true);
 
-  const handleGroups = () => {
-    let groupALength,
-      groupBLength,
-      groupCLength = 0;
-    //G R O U P  A
-    if (groupA.current.length > 0) return;
-    groupALength =
-      groupBLength === 4 || groupCLength === 4
-        ? 3
-        : Math.floor(Math.random() * 2) + 3;
-    for (let i = 0; i < groupALength; i++) {
-      const choosen = Math.floor(Math.random() * total.current.length);
-      groupA.current.push(total.current[choosen]);
-      total.current.splice(choosen, 1);
-    }
+  useEffect(() => {
+    setTimeout(() => {
+      allCandidatesLink.current.click();
+    }, 3000);
+    setTimeout(() => {
+      groupStageLink.current.click();
+    }, 6000);
+    setTimeout(() => {
+      groupALink.current.click();
+      setLockScroll(false);
+    }, 9000);
+  }, []);
 
-    //G R O U P  B
-    if (groupB.current.length > 0) return;
-    groupBLength =
-      groupALength === 4 || groupCLength === 4
-        ? 3
-        : Math.floor(Math.random() * 2) + 3;
-    for (let i = 0; i < groupBLength; i++) {
-      const choosen = Math.floor(Math.random() * total.current.length);
-      groupB.current.push(total.current[choosen]);
-      total.current.splice(choosen, 1);
-    }
-
-    //G R O U P  C
-    if (groupC.current.length > 0) return;
-    groupCLength =
-      groupBLength === 4 || groupALength === 4
-        ? 3
-        : Math.floor(Math.random() * 2) + 3;
-    for (let i = 0; i < groupCLength; i++) {
-      const choosen = Math.floor(Math.random() * total.current.length);
-      groupC.current.push(total.current[choosen]);
-      total.current.splice(choosen, 1);
-    }
-
-    //G R O U P  D
-    if (groupD.current.length > 0) return;
-    groupD.current = [...total.current];
-    setLoading(false);
-  };
-
-  useEffect(() => handleGroups(), []);
-  if (!loading)
-    return (
-      <Box paddingY={3} paddingX={2}>
-        <GroupStage
-          groupA={groupA.current}
-          groupB={groupB.current}
-          groupC={groupC.current}
-          groupD={groupD.current}
-        />
-        {semifinal && <Semifinal />}
-        {final && <Final />}
-      </Box>
-    );
+  return (
+    <Stack paddingY={3} paddingX={2}>
+      {lockScroll && <LockScroll />}
+      <Wallpaper />
+      <Navbar />
+      <Link display={'none'} ref={allCandidatesLink} href="#all-candidates" />
+      <AllCandidates />
+      <Link
+        display={'none'}
+        ref={groupStageLink}
+        href="#group-stage-onboarding"
+      />
+      <GroupStage />
+      <Link display={'none'} ref={groupALink} href="#group-A" />
+      {semifinal && <Semifinal />}
+      {thirdFinal && <ThirdPlace />}
+      {final && <Final />}
+    </Stack>
+  );
 }
 
 export default App;
