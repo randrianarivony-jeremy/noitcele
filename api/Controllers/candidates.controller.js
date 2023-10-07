@@ -41,3 +41,43 @@ export const vote = async (req, res) => {
       });
     });
 };
+
+export const create = async (req, res) => {
+  await candidateModel
+    .create([
+      { name: 'Tahina Razafinjoelina', number: 1 },
+      { name: 'Hajo Andrianainarivelo', number: 2 },
+      { name: 'Andry Rajoelina', number: 3 },
+      { name: 'Rolland Ratsiraka', number: 4 },
+      { name: 'Marc Ravalomanana', number: 5 },
+      { name: 'Richard Paraina', number: 6 },
+      { name: 'Andry Raobelina', number: 7 },
+      {
+        name: 'Jean-Brunelle Razafitsiandraofa',
+        number: 8,
+      },
+      { name: 'Lalaina Ratsirahonana', number: 9 },
+      {
+        name: 'Hery Rajaonarimampianina',
+        number: 10,
+      },
+      {
+        name: 'Sendrison Daniela Raderanirina',
+        number: 11,
+      },
+      { name: 'Jean-Jacques Ratsietison', number: 12 },
+      {
+        name: 'Siteny Randrianasoloniaiko',
+        number: 13,
+      },
+    ])
+    .then(() => {
+      res.status(200).send({ message: 'Registered successfully' });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send({
+        message: 'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+      });
+    });
+};

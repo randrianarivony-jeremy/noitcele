@@ -47,7 +47,7 @@ const Final = () => {
       else return candidat;
     });
     axios
-      .post(process.env.REACT_APP_API_URL + 'api/vote', payload, {
+      .post(process.env.REACT_APP_API_URL + '/api/vote', payload, {
         withCredentials: true,
       })
       .then(data => {
@@ -63,7 +63,13 @@ const Final = () => {
             status: 'error',
             title: 'Vous avez déjà voté.',
           });
-        }
+        } else
+          toast({
+            id: 'error',
+            status: 'error',
+            title:
+              "Une erreur s'est produite. Veuillez réessayer ultérieurement.",
+          });
       })
       .finally(() => setLoading(false));
   };
