@@ -6,12 +6,13 @@ const Wrapper = (Component, idName, stage) =>
   function HOC() {
     const { height } = useContext(appContext);
     return (
-      <Stack id={idName} minH={height - 95} paddingTop={14}>
+      <Stack id={idName} minH={height - 95} paddingTop={'60px'} paddingX={3}>
         <Heading size={'md'} paddingY={2}>
           {stage}
         </Heading>
         <Text fontSize={'sm'}>
-          Iza no tsy tianao ho lany filoham-pirenena ?
+          Iza no tsy tianao ho lany filoham-pirenena ?{' '}
+          <strong style={{ fontStyle: 'italic' }}>(cliquez)</strong>
         </Text>
         <Component />
       </Stack>

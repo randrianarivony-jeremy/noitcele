@@ -1,4 +1,4 @@
-import { Box, Button, Center, Stack } from '@chakra-ui/react';
+import { Box, Button, Center, Stack, useToast } from '@chakra-ui/react';
 import React, { useContext, useEffect, useState } from 'react';
 import { appContext } from '../Context/Context';
 import GroupA from './GroupA';
@@ -13,12 +13,22 @@ const GroupStage = () => {
     semifinalistsA,
     semifinalistsB,
     height,
+    showGroupB,
+    showGroupC,
+    showGroupD,
   } = useContext(appContext);
   const [complete, setComplete] = useState(false);
   const [finished, setFinished] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
   const handleSubmit = () => {
+    if (Object.values(semifinalists).includes(''))
+      return toast({
+        status: 'error',
+        description: 'Vote incomplet',
+        isClosable: true,
+        position: 'top',
+      });
     const total = Object.values(semifinalists);
 
     // S E M I  A
@@ -42,9 +52,13 @@ const GroupStage = () => {
     else setComplete(true);
   }, [semifinalists]);
 
-  // if (!loading)
   return (
-    <Box pointerEvents={finished && 'none'} opacity={finished ? 0.5 : 1}>
+    <Box
+      pointerEvents={finished && 'none'}
+      opacity={finished ? 0.5 : 1}
+      paddingX={3}
+      paddingY={2}
+    >
       {/* <Circle
           pos={'absolute'}
           top={2}
@@ -72,18 +86,19 @@ const GroupStage = () => {
       </Center>
       <Stack spacing={10} id="group-stage">
         <GroupA />
-        <GroupB />
-        <GroupC />
-        <GroupD />
-        <Button
-          id="group-phase-submit"
-          bgColor="brand"
-          onClick={handleSubmit}
-          isDisabled={!complete}
-          color={'blackAlpha.900'}
-        >
-          {finished ? 'Validé' : 'Valider'}
-        </Button>
+        {showGroupB && <GroupB />}
+        {showGroupC && <GroupC />}
+        {showGroupD && <GroupD />}
+        {showGroupD && (
+          <Button
+            id="group-phase-submit"
+            bgColor={complete && 'brand'}
+            onClick={handleSubmit}
+            color={'blackAlpha.900'}
+          >
+            {finished ? 'Validé' : 'Valider'}
+          </Button>
+        )}
       </Stack>
     </Box>
   );

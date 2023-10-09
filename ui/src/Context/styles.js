@@ -5,12 +5,12 @@ const breakpoints = {
   base: '0px',
   sm: '360px',
   md: '520px',
-  lg: '960px',
+  lg: '760px',
   xl: '1200px',
   '2xl': '1536px',
 };
 const config = {
-  initialColorMode: 'light',
+  initialColorMode: 'dark',
   useSystemColorMode: false,
 };
 

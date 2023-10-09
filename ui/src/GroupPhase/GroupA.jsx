@@ -5,7 +5,8 @@ import Wrapper from '../Components/Wrapper';
 import { appContext } from '../Context/Context';
 
 const GroupA = () => {
-  const { semifinalists, setSemifinalists, groupA } = useContext(appContext);
+  const { semifinalists, setSemifinalists, setShowGroupB, groupA } =
+    useContext(appContext);
 
   return (
     <HStack
@@ -19,9 +20,10 @@ const GroupA = () => {
           key={candidate.nb}
           selection={semifinalists.A.nb}
           candidate={candidate}
-          handleClick={() =>
-            setSemifinalists({ ...semifinalists, A: candidate })
-          }
+          handleClick={() => {
+            setSemifinalists({ ...semifinalists, A: candidate });
+            setShowGroupB(true);
+          }}
           next="group-B"
         />
       ))}

@@ -58,6 +58,11 @@ const AppContext = ({ children }) => {
   const groupC = useRef([]);
   const groupD = useRef([]);
 
+  const [showGroupB, setShowGroupB] = useState(false);
+  const [showGroupC, setShowGroupC] = useState(false);
+  const [showGroupD, setShowGroupD] = useState(false);
+
+  const [showSemiB, setShowSemiB] = useState(false);
   const [semifinal, setSemifinal] = useState(false);
   const [semifinalists, setSemifinalists] = useState({
     A: '',
@@ -136,7 +141,15 @@ const AppContext = ({ children }) => {
         groupB: groupB.current,
         groupC: groupC.current,
         groupD: groupD.current,
+        showGroupB,
+        setShowGroupB,
+        showGroupC,
+        setShowGroupC,
+        showGroupD,
+        setShowGroupD,
         semifinal,
+        showSemiB,
+        setShowSemiB,
         setSemifinal,
         semifinalistsA,
         semifinalistsB,

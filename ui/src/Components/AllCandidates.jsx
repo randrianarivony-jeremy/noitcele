@@ -1,24 +1,33 @@
-import { HStack, Image, Square } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { appContext } from '../Context/Context';
-import Wrapper from './Wrapper';
 
 const AllCandidates = () => {
   const { candidates, height } = useContext(appContext);
   return (
-    <HStack wrap={'wrap'} justify={'center'} align={'center'} minH={height}>
+    <Flex
+      wrap={'wrap'}
+      justify={'center'}
+      align={'center'}
+      minH={height}
+      height={'100%'}
+      id="all-candidates"
+      paddingTop={16}
+    >
       {candidates.map(candidate => (
-        <Square size={'20vw'} maxW={250} key={candidate.nb}>
-          <Image
-            src={candidate.picture}
-            objectFit={'contain'}
-            alt={candidate.name}
-            width={'100%'}
-          />
-        </Square>
+        <Image
+          key={candidate.nb}
+          margin={[2, 2, 4, 5]}
+          src={candidate.picture}
+          objectFit={'contain'}
+          alt={candidate.name}
+          width={[20, 100, 120, 150]}
+          aspectRatio={1}
+          rounded={'full'}
+        />
       ))}
-    </HStack>
+    </Flex>
   );
 };
 
-export default Wrapper(AllCandidates, 'all-candidates', 'Liste');
+export default AllCandidates;

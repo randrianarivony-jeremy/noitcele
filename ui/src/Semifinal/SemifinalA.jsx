@@ -11,6 +11,7 @@ const SemifinalA = () => {
     setFinalists,
     setThirdFinalists,
     thirdFinalists,
+    setShowSemiB,
   } = useContext(appContext);
   return (
     <HStack
@@ -25,6 +26,7 @@ const SemifinalA = () => {
           selection={finalists.A.nb}
           candidate={candidate}
           handleClick={() => {
+            setShowSemiB(true);
             setFinalists({ ...finalists, A: candidate });
             setThirdFinalists({
               ...thirdFinalists,

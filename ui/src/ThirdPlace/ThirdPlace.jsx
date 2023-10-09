@@ -1,4 +1,4 @@
-import { Box, Button, Center, Link, Stack } from '@chakra-ui/react';
+import { Box, Button, Center, Link, Stack, useToast } from '@chakra-ui/react';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { appContext } from '../Context/Context';
 import ThirdDashboard from './ThirdDashboard';
@@ -8,6 +8,7 @@ const ThirdPlace = () => {
   const [finished, setFinished] = useState(false);
   const thirdOnboardingLink = useRef();
   const thirdLink = useRef();
+  const toast = useToast();
 
   useEffect(() => {
     thirdOnboardingLink.current.click();
@@ -16,10 +17,13 @@ const ThirdPlace = () => {
     }, 3000);
   }, []);
 
-  //   useEffect(() => console.log(thirdFinalists), [thirdFinalists]);
-
   return (
-    <Box pointerEvents={finished && 'none'} opacity={finished ? 0.5 : 1}>
+    <Box
+      pointerEvents={finished && 'none'}
+      opacity={finished ? 0.5 : 1}
+      paddingX={3}
+      paddingY={2}
+    >
       <Center
         height={height}
         id="third-onboarding"
@@ -40,12 +44,18 @@ const ThirdPlace = () => {
         <ThirdDashboard />
         <Button
           id="third-submit"
-          bgColor="brand"
+          bgColor={thirdPlace !== undefined && 'brand'}
           onClick={() => {
+            if (thirdPlace === undefined)
+              return toast({
+                status: 'error',
+                description: 'Vote incomplet',
+                isClosable: true,
+                position: 'top',
+              });
             setFinal(true);
             setFinished(true);
           }}
-          isDisabled={thirdPlace === undefined}
           color={'blackAlpha.900'}
         >
           {finished ? 'Validé' : 'Valider'}

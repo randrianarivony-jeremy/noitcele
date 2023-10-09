@@ -5,7 +5,8 @@ import { appContext } from '../Context/Context';
 import Card from '../Components/Card';
 
 const GroupB = () => {
-  const { groupB, semifinalists, setSemifinalists } = useContext(appContext);
+  const { groupB, semifinalists, setSemifinalists, setShowGroupC } =
+    useContext(appContext);
 
   return (
     <HStack
@@ -19,9 +20,10 @@ const GroupB = () => {
           key={candidate.nb}
           selection={semifinalists.B.nb}
           candidate={candidate}
-          handleClick={() =>
-            setSemifinalists({ ...semifinalists, B: candidate })
-          }
+          handleClick={() => {
+            setSemifinalists({ ...semifinalists, B: candidate });
+            setShowGroupC(true);
+          }}
           next="group-C"
         />
       ))}

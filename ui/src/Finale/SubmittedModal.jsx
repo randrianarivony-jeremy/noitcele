@@ -126,7 +126,7 @@ const SubmittedModal = ({ isOpen, onOpen, onClose }) => {
               </Center>
             </HStack>
             <Text>
-              Valim-pifidianana: <strong>15 Novembre 2023</strong>
+              Valim-pifidianana: <strong>07 Novembre 2023</strong>
             </Text>
           </Stack>
         </ModalBody>

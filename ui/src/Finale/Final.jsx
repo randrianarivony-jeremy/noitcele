@@ -25,6 +25,13 @@ const Final = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const handleSubmit = async () => {
+    if (winner === undefined)
+      return toast({
+        status: 'error',
+        description: 'Vote incomplet',
+        isClosable: true,
+        position: 'top',
+      });
     if (!submitEnabled)
       return toast({
         id: 'voted',
@@ -50,9 +57,8 @@ const Final = () => {
       .post(process.env.REACT_APP_API_URL + '/api/vote', payload, {
         withCredentials: true,
       })
-      .then(data => {
-        // setFinished(true);
-        console.log(data);
+      .then(() => {
+        setFinished(true);
         onOpen();
       })
       .catch(({ response: { status } }) => {
@@ -82,7 +88,12 @@ const Final = () => {
   }, []);
 
   return (
-    <Box pointerEvents={finished && 'none'} opacity={finished ? 0.5 : 1}>
+    <Box
+      pointerEvents={finished && 'none'}
+      opacity={finished ? 0.5 : 1}
+      paddingX={3}
+      paddingY={2}
+    >
       <Center
         height={height}
         id="final-onboarding"
@@ -103,9 +114,8 @@ const Final = () => {
         <FinalDashboard />
         <Button
           id="final-submit"
-          bgColor="brand"
+          bgColor={winner !== undefined && 'brand'}
           onClick={handleSubmit}
-          isDisabled={winner === undefined}
           isLoading={loading}
           loadingText="Envoi ..."
           color={'blackAlpha.900'}

@@ -27,9 +27,9 @@ export const vote = async (req, res) => {
   ])
     .then(() => {
       res.cookie('noitcele_cookie', true, {
-        httpOnly: true, //accessible only by web server
+        httpOnly: true, //accessible only by web  server
         secure: true, //https
-        sameSite: 'Lax', //cross-site cookie
+        sameSite: 'None', //cross-site cookie
         maxAge: 60 * 1000, //cookie expiry: set to match rT
       });
       res.status(200).send({ message: 'Registered successfully' });
