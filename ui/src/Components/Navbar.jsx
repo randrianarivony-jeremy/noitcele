@@ -4,7 +4,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Logo from './Logo';
 
 const Navbar = () => {
-  const bgColor = useColorModeValue('white', 'blackAlpha');
+  const bgColor = useColorModeValue('white', 'black');
   const borderColor = useColorModeValue('blackAlpha.500', 'white');
   return (
     <Flex

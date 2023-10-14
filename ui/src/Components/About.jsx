@@ -15,6 +15,8 @@ const About = ({ setUnderstood, setLockScroll }) => {
   const [finished, setFinished] = useState(false);
   const groupStageLink = useRef();
   const groupALink = useRef();
+  const distributionLink = useRef();
+  const distributionOnboardingLink = useRef();
 
   return (
     <Stack
@@ -31,6 +33,23 @@ const About = ({ setUnderstood, setLockScroll }) => {
         indray no be tsy tia indrindra e ?
       </Text>
       <Stack>
+        <Heading size={'sm'}>Fandehany</Heading>
+        <UnorderedList paddingLeft={3}>
+          <ListItem>Atao tahaka ny foot ilay fifidianana.</ListItem>
+          <ListItem>Indray mandeha ihany no mifidy ny tsirairay.</ListItem>
+          <ListItem>
+            Mihena 1 point izay tafakatra demi-finale; mihena 2 points izay
+            troisième place; mihena 4 points izay 2e place; mihena 5 points izay
+            champion.
+          </ListItem>
+          <ListItem>
+            <strong>14 Novembre :</strong> Avoaka ny valim-pifidianana rehefa
+            nanome ny vote-ny avy ny mpifidy rehetra. Ho hita eo ny points
+            azon'ny candidats tsirairay.
+          </ListItem>
+        </UnorderedList>
+      </Stack>
+      <Stack>
         <Heading size={'sm'} htmlFor="stage">
           Etape du match :
         </Heading>
@@ -41,22 +60,6 @@ const About = ({ setUnderstood, setLockScroll }) => {
           <ListItem>Finale</ListItem>
         </OrderedList>
       </Stack>
-      <Stack>
-        <Heading size={'sm'}>Fandehany</Heading>
-        <UnorderedList paddingLeft={3}>
-          <ListItem>Indray mandeha ihany no mifidy ny tsirairay.</ListItem>
-          <ListItem>
-            Mihena 1 point izay tafakatra demi-finale; mihena 2 points izay
-            troisième place; mihena 4 points izay 2e place; mihena 5 points izay
-            champion.
-          </ListItem>
-          <ListItem>
-            <strong>07 Novembre :</strong> Avoaka ny valim-pifidianana rehefa
-            nanome ny vote-ny avy ny mpifidy rehetra. Ho hita eo ny points
-            azon'ny candidats tsirairay.
-          </ListItem>
-        </UnorderedList>
-      </Stack>
       <Text textAlign={'end'} fontSize={'xs'} fontStyle={'italic'}>
         *Mialatsiny amin'ilay vary amin'anana.
       </Text>
@@ -66,21 +69,34 @@ const About = ({ setUnderstood, setLockScroll }) => {
         textAlign={'center'}
         rounded={'md'}
         bgColor={'brand'}
+        color={'blackAlpha.900'}
         onClick={() => {
           setFinished(true);
           setLockScroll(true);
           setUnderstood(true);
           setTimeout(() => {
-            groupStageLink.current.click();
+            distributionOnboardingLink.current.click();
           }, 3000);
+          setTimeout(() => {
+            distributionLink.current.click();
+          }, 6000);
+          setTimeout(() => {
+            groupStageLink.current.click();
+          }, 9000);
           setTimeout(() => {
             groupALink.current.click();
             setLockScroll(false);
-          }, 6000);
+          }, 12000);
         }}
       >
         J'ai compris
       </Link>
+      <Link
+        display={'none'}
+        ref={distributionOnboardingLink}
+        href="#distribution-onboarding"
+      />
+      <Link display={'none'} ref={distributionLink} href="#distribution" />
       <Link
         display={'none'}
         ref={groupStageLink}

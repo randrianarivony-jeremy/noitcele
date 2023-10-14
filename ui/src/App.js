@@ -11,6 +11,7 @@ import GroupStage from './GroupPhase/GroupStage';
 import Semifinal from './Semifinal/Semifinal';
 import ThirdPlace from './ThirdPlace/ThirdPlace';
 import About from './Components/About';
+import Distribution from './Components/Distribution';
 
 function App() {
   const { thirdFinal, final, semifinal } = useContext(appContext);
@@ -32,6 +33,7 @@ function App() {
       <Link display={'none'} ref={aboutLink} href="#about" />
       <About setUnderstood={setUnderstood} setLockScroll={setLockScroll} />
       {understood && <AllCandidates />}
+      {understood && <Distribution />}
       {understood && <GroupStage />}
       {semifinal && <Semifinal />}
       {thirdFinal && <ThirdPlace />}
